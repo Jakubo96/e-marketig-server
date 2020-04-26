@@ -35,4 +35,10 @@ public class BluetoothDeviceService {
     public void logout(String mac) {
         this.bluetoothDeviceRepository.deleteByMac(mac);
     }
+
+    public BluetoothDeviceDto findDevice(String mac) {
+        return this.bluetoothDeviceRepository.findByMac(mac)
+                .map(BluetoothDeviceMapper::toDto)
+                .orElse(null);
+    }
 }
