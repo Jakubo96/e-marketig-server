@@ -1,1 +1,1 @@
-e-marketig-server
+e-marketing-server
