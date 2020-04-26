@@ -9,7 +9,6 @@ import javax.validation.constraints.Pattern;
 @Data
 @Builder
 public class DetectedDeviceDto {
-    @NotBlank
     private String username;
     @NotBlank
     @Pattern(regexp = "^([0-9A-F]{2}):([0-9A-F]{2}):([0-9A-F]{2}):([0-9A-F]{2}):([0-9A-F]{2}):([0-9A-F]{2})$")
