@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:h2:mem:testdb
+    url: jdbc:h2:mem:bluetooth
     driver-class-name: org.h2.Driver
     username: sa
     password: password
@@ -8,6 +8,9 @@ spring:
     database-platform: org.hibernate.dialect.H2Dialect
     hibernate:
       ddl-auto: create-drop
+  h2:
+    console:
+      enabled: true
 
 app:
   firebase-configuration-file: google/e-marketing-a7f9e-firebase-adminsdk-fg3yf-c5757c67e2.json
