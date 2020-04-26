@@ -1,5 +1,6 @@
 package pl.poznan.put.emarketing.services;
 
+import com.google.firebase.messaging.FirebaseMessagingException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.poznan.put.emarketing.mappers.BluetoothDeviceMapper;
@@ -14,9 +15,11 @@ import java.util.stream.Collectors;
 @Service
 public class BluetoothDeviceService {
     private final BluetoothDeviceRepository bluetoothDeviceRepository;
+    private final FCMService fcmService;
 
-    public BluetoothDeviceService(BluetoothDeviceRepository bluetoothDeviceRepository) {
+    public BluetoothDeviceService(BluetoothDeviceRepository bluetoothDeviceRepository, FCMService fcmService) {
         this.bluetoothDeviceRepository = bluetoothDeviceRepository;
+        this.fcmService = fcmService;
     }
 
     public List<BluetoothDeviceDto> getAllDevices() {
@@ -36,9 +39,19 @@ public class BluetoothDeviceService {
         this.bluetoothDeviceRepository.deleteByMac(mac);
     }
 
-    public BluetoothDeviceDto findDevice(String mac) {
-        return this.bluetoothDeviceRepository.findByMac(mac)
+    public BluetoothDeviceDto findDevice(String mac) throws FirebaseMessagingException {
+        BluetoothDeviceDto foundDevice = this.bluetoothDeviceRepository.findByMac(mac)
                 .map(BluetoothDeviceMapper::toDto)
                 .orElse(null);
+        
+        if(foundDevice != null) {
+            this.sendPushNotification(foundDevice);
+        }
+        
+        return foundDevice;
+    }
+
+    private void sendPushNotification(BluetoothDeviceDto foundDevice) throws FirebaseMessagingException {
+        this.fcmService.sendNotificationToGivenDevice(foundDevice);
     }
 }

@@ -8,3 +8,6 @@ spring:
     database-platform: org.hibernate.dialect.H2Dialect
     hibernate:
       ddl-auto: create-drop
+
+app:
+  firebase-configuration-file: google/e-marketing-a7f9e-firebase-adminsdk-fg3yf-c5757c67e2.json

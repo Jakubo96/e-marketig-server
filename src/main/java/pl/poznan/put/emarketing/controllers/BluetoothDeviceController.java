@@ -1,5 +1,6 @@
 package pl.poznan.put.emarketing.controllers;
 
+import com.google.firebase.messaging.FirebaseMessagingException;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import pl.poznan.put.emarketing.models.dtos.BluetoothDeviceDto;
@@ -32,7 +33,7 @@ public class BluetoothDeviceController {
     }
 
     @GetMapping("/device/{mac}")
-    public BluetoothDeviceDto deviceDetected(@PathVariable String mac) {
+    public BluetoothDeviceDto deviceDetected(@PathVariable String mac) throws FirebaseMessagingException {
         return this.bluetoothDeviceService.findDevice(mac);
     }
 }
