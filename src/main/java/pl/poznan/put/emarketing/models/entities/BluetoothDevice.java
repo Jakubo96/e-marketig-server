@@ -1,5 +1,6 @@
 package pl.poznan.put.emarketing.models.entities;
 
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -11,6 +12,7 @@ import javax.persistence.Id;
 @Entity
 @Data
 @NoArgsConstructor
+@Builder
 public class BluetoothDevice {
     @Id
     @GeneratedValue(strategy =  GenerationType.AUTO)
