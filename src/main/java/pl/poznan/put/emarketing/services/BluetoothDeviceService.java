@@ -1,6 +1,5 @@
 package pl.poznan.put.emarketing.services;
 
-import com.google.firebase.messaging.FirebaseMessagingException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.poznan.put.emarketing.mappers.BluetoothDeviceMapper;
@@ -23,35 +22,35 @@ public class BluetoothDeviceService {
     }
 
     public List<BluetoothDeviceDto> getAllDevices() {
-        return this.bluetoothDeviceRepository.findAll()
+        return bluetoothDeviceRepository.findAll()
                 .stream().map(BluetoothDeviceMapper::toDto).collect(Collectors.toList());
     }
 
     @Transactional
     public void login(BluetoothDeviceDto device) {
-        Optional<BluetoothDevice> existingDevice = this.bluetoothDeviceRepository.findByMac(device.getMac());
-        existingDevice.ifPresent(this.bluetoothDeviceRepository::delete);
-        this.bluetoothDeviceRepository.save(BluetoothDeviceMapper.toEntity(device));
+        Optional<BluetoothDevice> existingDevice = bluetoothDeviceRepository.findByMac(device.getMac());
+        existingDevice.ifPresent(bluetoothDeviceRepository::delete);
+        bluetoothDeviceRepository.save(BluetoothDeviceMapper.toEntity(device));
     }
 
     @Transactional
     public void logout(String mac) {
-        this.bluetoothDeviceRepository.deleteByMac(mac);
+        bluetoothDeviceRepository.deleteByMac(mac);
     }
 
-    public BluetoothDeviceDto findDevice(String mac) throws FirebaseMessagingException {
-        BluetoothDeviceDto foundDevice = this.bluetoothDeviceRepository.findByMac(mac)
+    public BluetoothDeviceDto findDevice(String mac) {
+        BluetoothDeviceDto foundDevice = bluetoothDeviceRepository.findByMac(mac)
                 .map(BluetoothDeviceMapper::toDto)
                 .orElse(null);
-        
-        if(foundDevice != null) {
-            this.sendPushNotification(foundDevice);
+
+        if (foundDevice != null) {
+            sendPushNotification(foundDevice);
         }
-        
+
         return foundDevice;
     }
 
-    private void sendPushNotification(BluetoothDeviceDto foundDevice) throws FirebaseMessagingException {
-        this.fcmService.sendNotificationToGivenDevice(foundDevice);
+    private void sendPushNotification(BluetoothDeviceDto foundDevice) {
+        fcmService.sendNotificationToGivenDevice(foundDevice);
     }
 }
