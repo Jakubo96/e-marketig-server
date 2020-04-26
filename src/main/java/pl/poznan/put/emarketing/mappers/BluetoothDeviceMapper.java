@@ -8,16 +8,16 @@ import pl.poznan.put.emarketing.models.entities.BluetoothDevice;
 public class BluetoothDeviceMapper {
     public BluetoothDevice toEntity(BluetoothDeviceDto dto) {
         return BluetoothDevice.builder()
-                .name(dto.getName())
-                .macAddress(dto.getMacAddress())
+                .username(dto.getUsername())
+                .mac(dto.getMac())
                 .pushToken(dto.getPushToken())
                 .build();
     }
 
     public BluetoothDeviceDto toDto(BluetoothDevice entity) {
         return BluetoothDeviceDto.builder()
-                .name(entity.getName())
-                .macAddress(entity.getMacAddress())
+                .username(entity.getUsername())
+                .mac(entity.getMac())
                 .pushToken(entity.getPushToken())
                 .build();
     }

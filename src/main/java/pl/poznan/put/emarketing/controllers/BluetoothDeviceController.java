@@ -1,9 +1,11 @@
 package pl.poznan.put.emarketing.controllers;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
+import pl.poznan.put.emarketing.models.dtos.BluetoothDeviceDto;
 import pl.poznan.put.emarketing.services.BluetoothDeviceService;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/bluetooth")
@@ -14,8 +16,13 @@ public class BluetoothDeviceController {
         this.bluetoothDeviceService = bluetoothDeviceService;
     }
 
-    @GetMapping("/test")
-    public String test() {
-        return "123";
+    @GetMapping("/all-devices")
+    public List<BluetoothDeviceDto> test() {
+        return this.bluetoothDeviceService.getAllDevices();
+    }
+
+    @PostMapping("/device/login")
+    public void login(@RequestBody @Validated BluetoothDeviceDto device) {
+        this.bluetoothDeviceService.login(device);
     }
 }
