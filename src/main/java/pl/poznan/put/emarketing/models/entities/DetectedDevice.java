@@ -22,4 +22,5 @@ public class DetectedDevice {
 
     private String username;
     private String mac;
+    private String pushToken;
 }

@@ -10,6 +10,7 @@ public class DetectedDeviceMapper {
         return DetectedDevice.builder()
                 .username(dto.getUsername())
                 .mac(dto.getMac())
+                .pushToken(dto.getPushToken())
                 .build();
     }
 
@@ -17,6 +18,7 @@ public class DetectedDeviceMapper {
         return DetectedDeviceDto.builder()
                 .username(entity.getUsername())
                 .mac(entity.getMac())
+                .pushToken(entity.getPushToken())
                 .build();
     }
 }
