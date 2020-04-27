@@ -59,6 +59,7 @@ public class FCMService {
                 .putData("messageType", MessageType.RECURRING.name())
                 .putData("messageTitle", "Recurring message")
                 .putData("messageBody", "That's the recurring message")
+                .putData("messageImage", "https://png2.cleanpng.com/sh/51a334175cd7f666ef30a17eea42d9b3/L0KzQYm3VMA1N5h5iZH0aYP2gLBuTfVud5tuRdpAbXHxPcTyif4ua5DxhAQ2d3H5dX7rggJsNaRwgdC2bHnqeMW0kBtqdl5tedDtLXXwf7vwTcVia2VrS6I7M0CzcrO6TsY0OGQ7TKM9MUW1Qom8VscxPmIATqo3cH7q/kisspng-emoji-human-skin-color-wave-dark-skin-light-skin-hand-emoji-5ac4f302300bb3.6303641415228567061968.png")
                 .setNotification(
                         Notification.builder()
                                 .setTitle("Your attention is required")
