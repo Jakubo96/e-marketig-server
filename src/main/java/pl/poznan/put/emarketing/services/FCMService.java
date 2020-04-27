@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import pl.poznan.put.emarketing.models.dtos.BluetoothDeviceDto;
 import pl.poznan.put.emarketing.models.dtos.NotificationTimeDto;
+import pl.poznan.put.emarketing.models.enums.MessageType;
 
 import java.text.MessageFormat;
 import java.util.Calendar;
@@ -34,7 +35,7 @@ public class FCMService {
         int hour = calendar.get(Calendar.HOUR_OF_DAY);
         int minute = calendar.get(Calendar.MINUTE);
 
-        Message message = buildCyclicalMessage(pushToken, hour, minute);
+        Message message = buildRecurringMessage(pushToken, hour, minute);
         sendMessage(message);
     }
 
@@ -51,13 +52,18 @@ public class FCMService {
                 .build();
     }
 
-    private Message buildCyclicalMessage(String pushToken, int hour, int minute) {
+    private Message buildRecurringMessage(String pushToken, int hour, int minute) {
         return Message.builder()
+                .putData("hour", String.valueOf(hour))
+                .putData("minute", String.valueOf(minute))
+                .putData("messageType", MessageType.RECURRING.name())
+                .putData("messageTitle", "Recurring message")
+                .putData("messageBody", "That's the recurring message")
                 .setNotification(
                         Notification.builder()
                                 .setTitle("Your attention is required")
-                                .setBody("Click onm the message to setup new cyclical attention")
-                                .setImage("https://i.kym-cdn.com/entries/icons/original/000/002/361/maxresdefault.jpg")
+                                .setBody("Click on the message to setup new recurring notification")
+                                .setImage("https://upload.wikimedia.org/wikipedia/en/3/34/Metric_clock.JPG")
                                 .build()
                 )
                 .setToken(pushToken)
