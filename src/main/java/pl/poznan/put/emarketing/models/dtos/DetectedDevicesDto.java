@@ -5,7 +5,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.validation.Valid;
-import javax.validation.constraints.NotEmpty;
 import java.util.List;
 
 @Data
@@ -13,6 +12,5 @@ import java.util.List;
 @NoArgsConstructor
 public class DetectedDevicesDto {
     @Valid
-    @NotEmpty
     private List<DetectedDeviceDto> detectedDevices;
 }
